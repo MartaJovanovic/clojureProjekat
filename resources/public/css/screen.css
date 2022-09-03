@@ -1,0 +1,16 @@
+ul.adrese {
+  list-style: none;
+  }
+  ul.adrese li {
+  padding: 0.5em;
+  border-bottom: 1px dotted #ccc;
+  }
+  ul.adrese li:last-child {
+  border-bottom: none;
+  }
+  li time {
+  font-size: 0.75em;
+  color: rgba(0, 0, 0, 0.5);
+  }
+  
+
