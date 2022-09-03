@@ -3,8 +3,7 @@
   :description "FIXME: write description"
   :url "http://example.com/FIXME"
 
-  :dependencies [[org.clojure/clojurescript "1.10.764" :scope "provided"]
-                 [ch.qos.logback/logback-classic "1.2.3"]
+  :dependencies [[ch.qos.logback/logback-classic "1.2.3"]
                  [cheshire "5.10.0"]
                  [clojure.java-time "0.3.2"]
                  [com.h2database/h2 "1.4.200"]
@@ -32,56 +31,54 @@
                  [ring/ring-core "1.8.2"]
                  [ring/ring-defaults "0.3.2"]
                  [selmer "1.12.31"]
+                 [cljs-ajax "0.8.1"]
+                 [org.clojure/clojurescript "1.10.764" :scope "provided"]
+                 [reagent "1.0.0"]
+                 [re-frame "1.1.2"]]
 
-                 [reagent "1.0.0"]]
+  :min-lein-version "2.0.0"
 
-  ;; :min-lein-version "2.0.0"
-
-  ;; :source-paths ["src/clj"]
-  ;; :test-paths ["test/clj"]
-  ;; :resource-paths ["resources"]
-  ;; :target-path "target/%s/"
-  ;; :main ^:skip-aot guestbook.core
-
-  ;; :plugins []
-
-  ;; :profiles
-  ;; {:uberjar {:omit-source true
-  ;;            :aot :all
-  ;;            :uberjar-name "guestbook.jar"
-  ;;            :source-paths ["env/prod/clj"]
-  ;;            :resource-paths ["env/prod/resources"]}
-
-  ;;  :dev           [:project/dev :profiles/dev]
-  ;;  :test          [:project/dev :project/test :profiles/test]
-
-  ;;  :project/dev  {:jvm-opts ["-Dconf=dev-config.edn"]
-  ;;                 :dependencies [[pjstadig/humane-test-output "0.10.0"]
-  ;;                                [prone "2020-01-17"]
-  ;;                                [ring/ring-devel "1.8.2"]
-  ;;                                [ring/ring-mock "0.4.0"]]
-  ;;                 :plugins      [[com.jakemccrary/lein-test-refresh "0.24.1"]
-  ;;                                [jonase/eastwood "0.3.5"]]
-
-  ;;                 :source-paths ["env/dev/clj"]
-  ;;                 :resource-paths ["env/dev/resources"]
-  ;;                 :repl-options {:init-ns user
-  ;;                                :timeout 120000}
-  ;;                 :injections [(require 'pjstadig.humane-test-output)
-  ;;                              (pjstadig.humane-test-output/activate!)]}
-  ;;  :project/test {:jvm-opts ["-Dconf=test-config.edn"]
-  ;;                 :resource-paths ["env/test/resources"]}
-  ;;  :profiles/dev {}
-  ;;  :profiles/test {}}
-
-
-  :resource-paths ["resources" "target/cljsbuild"]
+  :source-paths ["src/clj" "src/cljc"]
+  :test-paths ["test/clj"]
+  :resource-paths ["resources"]
   :target-path "target/%s/"
   :main ^:skip-aot guestbook.core
+
   :plugins [[lein-cljsbuild "1.1.8"]]
+
+  :profiles
+  {:uberjar {:omit-source true
+             :aot :all
+             :uberjar-name "guestbook.jar"
+             :source-paths ["env/prod/clj"]
+             :resource-paths ["env/prod/resources"]}
+
+   :dev           [:project/dev :profiles/dev]
+   :test          [:project/dev :project/test :profiles/test]
+
+   :project/dev  {:jvm-opts ["-Dconf=dev-config.edn"]
+                  :dependencies [[pjstadig/humane-test-output "0.10.0"]
+                                 [prone "2020-01-17"]
+                                 [ring/ring-devel "1.8.2"]
+                                 [ring/ring-mock "0.4.0"]]
+                  :plugins      [[com.jakemccrary/lein-test-refresh "0.24.1"]
+                                 [jonase/eastwood "0.3.5"]]
+
+                  :source-paths ["env/dev/clj"]
+                  :resource-paths ["env/dev/resources"]
+                  :repl-options {:init-ns user
+                                 :timeout 120000}
+                  :injections [(require 'pjstadig.humane-test-output)
+                               (pjstadig.humane-test-output/activate!)]}
+   :project/test {:jvm-opts ["-Dconf=test-config.edn"]
+                  :resource-paths ["env/test/resources"]}
+   :profiles/dev {}
+   :profiles/test {}}
+
+
   :cljsbuild
   {:builds
-   {:app {:source-paths ["src/cljs"]
+   {:app {:source-paths ["src/cljs" "src/cljc"]
           :compiler {:output-to "target/cljsbuild/public/js/app.js"
                      :output-dir "target/cljsbuild/public/js/out"
                      :main "guestbook.core"

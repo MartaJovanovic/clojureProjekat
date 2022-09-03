@@ -3,7 +3,7 @@ ul.adrese {
   }
   ul.adrese li {
   padding: 0.5em;
-  border-bottom: 1px dotted #ccc;
+  border-bottom: 7px dotted #ccc;
   }
   ul.adrese li:last-child {
   border-bottom: none;
@@ -11,6 +11,10 @@ ul.adrese {
   li time {
   font-size: 0.75em;
   color: rgba(0, 0, 0, 0.5);
+  }
+
+  .adrese{
+    background-color: turquoise;
   }
   
 

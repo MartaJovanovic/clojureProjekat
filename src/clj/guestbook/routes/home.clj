@@ -6,21 +6,9 @@
    [guestbook.middleware :as middleware]
    [ring.util.response]
    [ring.util.http-response :as response]
-   [struct.core :as st]))
+   [struct.core :as st]
+   [guestbook.validation :refer [validate-adresa]]))
 
-
-(def adresa-schema
-  [[:ime
-    st/required
-    st/string]
-   [:adresa
-    st/required
-    st/string
-    {:message "Adresa mora biti duza od 7"
-     :validate (fn [msg] (>= (count msg) 7))}]])
-
-(defn validate-adresa [params]
-  (first (st/validate params adresa-schema)))
 
 (defn save-adresa! [{:keys [params]}]
   (if-let [errors (validate-adresa params)]
@@ -30,7 +18,12 @@
       (db/save-adresa! params)
       (response/found "/"))))
 
-(defn home-page [{:keys [flash] :as request}]
+(defn home-page [request]
+  (layout/render
+   request
+   "home.html"))
+
+(defn adrese-list [{:keys [flash] :as request}]
   (layout/render
    request
    "home.html"
@@ -45,6 +38,7 @@
    {:middleware [middleware/wrap-csrf
                  middleware/wrap-formats]}
    ["/" {:get home-page}]
+   ["/adrese" {:get adrese-list}]
    ["/adresa" {:post save-adresa!}]
    ["/about" {:get about-page}]])
 
